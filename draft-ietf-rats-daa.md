@@ -82,12 +82,12 @@ A PKIX Certificate is an X.509v3 format certificate as specified by {{RFC5280}}.
 {{dataflows}} shows the data flows between the different RATS roles involved in DAA.
 
 <!-- this would benefit from aasvg -->
-~~~~
-  ************       *************   ************   *****************
-  * Endorser *       * Reference *   * Verifier *   * Relying Party *
-  ************       * Value     *   *  Owner   *   *  Owner        *
-       |             * Provider  *   ************   *****************
-       |             *************          |            |
+~~~~ aasvg
+  .==========.       .===========.   .==========.   .===============.
+  ║ Endorser ║       ║ Reference ║   ║ Verifier ║   ║ Relying Party ║
+  '====+====='       ║ Value     ║   ║  Owner   ║   ║  Owner        ║
+       |             ║ Provider  ║   '======+==='   '====+=========='
+       |             '=========+='          |            |
        |                       |            |            |
        |Endorsements           |Reference   |Appraisal   |Appraisal
        |                       |Values      |Policy      |Policy for
@@ -95,24 +95,24 @@ A PKIX Certificate is an X.509v3 format certificate as specified by {{RFC5280}}.
        |                       |            |Evidence    |Results
        V                       |            |            |
 .-----------------.            |            |            |
-|   DAA Issuer    |---------.  |            |            |
-'-----------------'         |  |            |            |
+|   DAA Issuer    +---------.  |            |            |
+'------------+----'         |  |            |            |
   ^          |         Group|  |            |            |
   |          |        Public|  |            |            |
   |Credential|           Key|  |            |            |
   |Request   |              v  v            v            |
   |          |             .----------------------.      |
-  |          |          .->|      Verifier        |--.   |
-  |          |          |  '----------------------'  |   |
-  |          |          |                            |   |
-  |          |          |Evidence         Attestation|   |
-  |          |          |                     Results|   |
-  |          |          |                            |   |
-  |          |Credential|                            |   |
-  |          |          |                            |   |
-  |          v          |                            v   v
+  |          |         .-->+      Verifier        +--.   |
+  |          |         |   '----------------------'  |   |
+  |          |         |                             |   |
+  |          |         |Evidence          Attestation|   |
+  |          |         |                      Results|   |
+  |          |         |                             |   |
+  |      Cred|ential   |                             |   |
+  |          |         |                             |   |
+  |          v         |                             v   v
   |        .-------------.                     .---------------.
-  '--------|  Attester   |                     | Relying Party |
+  '--------+  Attester   |                     | Relying Party |
            '-------------'                     '---------------'
 ~~~~
 {: #dataflows title="DAA data flows"}
