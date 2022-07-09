@@ -6,6 +6,7 @@ abbrev: DAA for RATS
 docname: draft-ietf-rats-daa-latest
 wg: RATS Working Group
 area: Security
+stream: IETF
 kw: Internet-Draft
 cat: info
 
