@@ -79,45 +79,76 @@ A PKIX Certificate is an X.509v3 format certificate as specified by {{RFC5280}}.
 
 # Direct Anonymous Attestation
 
-{{dataflows}} shows the data flows between the different RATS roles involved in DAA.
+In {{DAA}}, two protocols as described in {{DAA}} are illustrated: the Join Protocol and the DAA-Signing Protocol. This Section specifies the mapping of the protocol entity DAA Issuer described in {{DAA}} as an actor in the Join Protocol as well as an actor in the corresponding DAA-Signing Protocol to roles specified in the RATS Architecture.
 
-<!-- this would benefit from aasvg -->
+In the Join Protocol, the RATS roles Verifier and associated Relying Party roles are taking the protocol entity DAA Issuer. The mapping is illustrated in Figure {{join-mapping}}.
+
 ~~~~ aasvg
-  .==========.       .===========.   .==========.   .===============.
-  ║ Endorser ║       ║ Reference ║   ║ Verifier ║   ║ Relying Party ║
-  '====+====='       ║ Value     ║   ║  Owner   ║   ║  Owner        ║
-       |             ║ Provider  ║   '======+==='   '====+=========='
-       |             '=========+='          |            |
-       |                       |            |            |
-       |Endorsements           |Reference   |Appraisal   |Appraisal
-       |                       |Values      |Policy      |Policy for
-       |                       |            |for         |Attestation
-       |                       |            |Evidence    |Results
-       V                       |            |            |
-.-----------------.            |            |            |
-|   DAA Issuer    +---------.  |            |            |
-'------------+----'         |  |            |            |
-  ^          |         Group|  |            |            |
-  |          |        Public|  |            |            |
-  |Credential|           Key|  |            |            |
-  |Request   |              v  v            v            |
-  |          |             .----------------------.      |
-  |          |         .-->+      Verifier        +--.   |
-  |          |         |   '----------------------'  |   |
-  |          |         |                             |   |
-  |          |         |Evidence          Attestation|   |
-  |          |         |                      Results|   |
-  |          |         |                             |   |
-  |      Cred|ential   |                             |   |
-  |          |         |                             |   |
-  |          v         |                             v   v
-  |        .-------------.                     .---------------.
-  '--------+  Attester   |                     | Relying Party |
-           '-------------'                     '---------------'
+    .--------.     .---------.       .--------.       .-------------.
+   | Endorser |   | Reference |     | Verifier |     | Relying Party |
+    '-+------'    | Value     |     | Owner    |     | Owner         |
+      |           | Provider  |      '---+----'       '----+--------'
+      |            '-----+---'           |                 |
+      |                  |               |                 |
+      | Endorsements     | Reference     | Appraisal       | Appraisal
+      |                  | Values        | Policy for      | Policy for
+      |                  |               | Evidence        | Attestation
+       '-----------.     |               |                 | Results
+                    |    |               |                 |
+               .----|----|---------------|-----------------|------.
+               |    |    |               |                 |      |
+               |    v    v               v                 |      |
+               |  .-------------------------.              |      |
+         .------->|         Verifier        +-----.        |      |
+        |      |  '-------------------------'      |       |      |
+        |      |                                   |       |      |
+        |  Evidence                    Attestation |       |      |
+        |      |                       Results     |       |      |
+        |      |                                   |       |      |
+        |      |                                   v       v      |
+  .-----+----. |                               .---------------.  |
+  | Attester | |                               | Relying Party |  |
+  '----------' |    DAA Issuer                 '---------------'  |
+               '--------------------------------------------------'
 ~~~~
-{: #dataflows title="DAA data flows"}
+{: #join-mapping title="RATS Architecture for the Join Protocol"}
 
-DAA {{DAA}} is a signature scheme that allows the privacy of users that are associated with an Attester (e.g. its owner) to be maintained.
+The Join Protocol is essentially an enrollment protocol that consumes Evidence from the Attester (therefore the mapping to the Verifier role). Appraisal Policies for Evidence specifically dedicated to that appraisal procedure are used to decide whether to issue a DAA credential to an Attester or not.
+
+In the DAA-Signing Protocol, the RATS role Endorser is then taken on by the DAA Issuer protocol entity. The mapping is illustrated in Figure {{sign-mapping}}.
+
+~~~~aasvg
+.---------------.
+| DAA Issuer    |
+|   .--------.  |  .---------.       .--------.       .-------------.
+|  | Endorser | | | Reference |     | Verifier |     | Relying Party |
+|   '-+------'  | | Value     |     | Owner    |     | Owner         |
+|     |         | | Provider  |      '---+----'       '----+--------'
+'-----|---------'  '-----+---'           |                 |
+      |                  |               |                 |
+      | Endorsements     | Reference     | Appraisal       | Appraisal
+      |                  | Values        | Policy for      | Policy for
+      |                  |               | Evidence        | Attestation
+       '-----------.     |               |                 | Results
+                    |    |               |                 |
+                    v    v               v                 |
+                  .-------------------------.              |
+          .------>|         Verifier        +-----.        |
+         |        '-------------------------'      |       |
+         |                                         |       |
+         | Evidence                    Attestation |       |
+         |                             Results     |       |
+         |                                         |       |
+         |                                         v       v
+   .-----+----.                                .---------------.
+   | Attester |                                | Relying Party |
+   '----------'                                '---------------'
+~~~~
+{: #sign-mapping title="RATS Architecture for the DAA-Signing Protocol"}
+
+The DAA Issuer acts as the Endorser for the Group Public Key that is used by the Verifier for the appraisal of evidence of anonymized Attesters that use the DAA credentials and associated key material to produce Evidence.
+
+In consequence, DAA provides a signature scheme that allows the privacy of users that are associated with an Attester (e.g. its owner) to be maintained.
 Essentially, DAA can be seen as a group signature scheme with the feature that given a DAA signature no-one can find out who the signer is, i.e., the anonymity is not revocable.
 To be able to sign anonymously, an Attester has to obtain a credential from a DAA Issuer.
 The DAA Issuer uses a private/public key pair to generate credentials for a group of Attesters <!-- this could be phrased a bit confusing as below it is stated that the key-pair is used for a group of Attesters --> and makes the public key (in the form of a public key certificate) available to the verifier in order to enable them to validate the Evidence received.
