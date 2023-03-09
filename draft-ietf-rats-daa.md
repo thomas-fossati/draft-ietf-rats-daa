@@ -79,7 +79,7 @@ A PKIX Certificate is an X.509v3 format certificate as specified by {{RFC5280}}.
 
 # Direct Anonymous Attestation
 
-In {{DAA}}, two protocols as described in {{DAA}} are illustrated: the Join Protocol and the DAA-Signing Protocol. This Section specifies the mapping of the protocol entity DAA Issuer described in {{DAA}} as an actor in the Join Protocol as well as an actor in the corresponding DAA-Signing Protocol to roles specified in the RATS Architecture.
+Two protocols as described in {{DAA}} are illustrated: the Join Protocol and the DAA-Signing Protocol. This section specifies the mapping of the protocol entity DAA Issuer described in {{DAA}} as an actor in the Join Protocol as well as an actor in the corresponding DAA-Signing Protocol to roles specified in the RATS Architecture.
 
 In the Join Protocol, the RATS roles Verifier and associated Relying Party roles are taking the protocol entity DAA Issuer. The mapping is illustrated in Figure {{join-mapping}}.
 
