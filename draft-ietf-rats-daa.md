@@ -148,7 +148,7 @@ In the DAA-Signing Protocol, the RATS role Endorser is then taken on by the DAA 
 
 The DAA Issuer acts as the Endorser for the Group Public Key that is used by the Verifier for the appraisal of evidence of anonymized Attesters that use the DAA credentials and associated key material to produce Evidence.
 
-In consequence, DAA provides a signature scheme that allows the privacy of users that are associated with an Attester (e.g. its owner) to be maintained.
+In consequence, DAA provides a signature scheme that allows the privacy of users that are associated with an Attester (e.g., its owner) to be maintained.
 Essentially, DAA can be seen as a group signature scheme with the feature that given a DAA signature no-one can find out who the signer is, i.e., the anonymity is not revocable.
 To be able to sign anonymously, an Attester has to obtain a credential from a DAA Issuer.
 The DAA Issuer uses a private/public key pair to generate credentials for a group of Attesters <!-- this could be phrased a bit confusing as below it is stated that the key-pair is used for a group of Attesters --> and makes the public key (in the form of a public key certificate) available to the Verifier in order to enable them to validate the Evidence received.
