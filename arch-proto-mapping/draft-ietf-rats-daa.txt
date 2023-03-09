@@ -221,8 +221,7 @@ Table of Contents
    credential from a DAA Issuer.  The DAA Issuer uses a private/public
    key pair to generate credentials for a group of Attesters and makes
    the public key (in the form of a public key certificate) available to
-   the Verifier in order to enable them to validate the Evidence
-   received.
+   the Verifier in order to enable it to validate the Evidence received.
 
    In order to support these DAA signatures, the DAA Issuer MUST
    associate a single key pair with a group of Attesters and use the
