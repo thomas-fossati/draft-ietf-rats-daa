@@ -213,7 +213,7 @@ Table of Contents
    produce Evidence.
 
    In consequence, DAA provides a signature scheme that allows the
-   privacy of users that are associated with an Attester (e.g. its
+   privacy of users that are associated with an Attester (e.g., its
    owner) to be maintained.  Essentially, DAA can be seen as a group
    signature scheme with the feature that given a DAA signature no-one
    can find out who the signer is, i.e., the anonymity is not revocable.
