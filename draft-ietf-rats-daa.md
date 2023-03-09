@@ -113,7 +113,7 @@ In the Join Protocol, the protocol entity DAA Issuer takes on the RATS roles of 
 ~~~~
 {: #join-mapping title="RATS Architecture for the Join Protocol"}
 
-The Join Protocol is essentially an enrollment protocol that consumes Evidence from the Attester (therefore the mapping to the Verifier role). Appraisal Policies for Evidence specifically dedicated to that appraisal procedure are used to decide whether to issue a DAA credential to an Attester or not.
+The Join Protocol is essentially an enrollment protocol that consumes Evidence from the Attester (therefore the mapping to the Verifier role). Corresponding Appraisal Policies for Evidence specific to the Join Protocol are used to produce Attestation Results to decide whether to issue a DAA credential to an Attester or not (therefore the mapping to the Relying Party role).
 
 In the DAA-Signing Protocol, the RATS role Endorser is then taken on by the DAA Issuer protocol entity. The mapping is illustrated in Figure {{sign-mapping}}.
 
