@@ -63,7 +63,7 @@ A common way to refer to such an identity is the Authentication Secret ID as def
 The fact that every Attesting Environment can be uniquely identified in the context of the RATS architecture is not suitable for every application of remote attestation.
 Additional issues may arise when Personally identifiable information (PII) -- whether obfuscated or in clear text -- are included in attestation Evidence or even corresponding Attestation Results.
 This document illustrates how Direct Anonymous Attestation (DAA) can mitigate the issue of uniquely (re-)identifiable Attesting Environments.
-To accomplish that goal, the protocol entity DAA Issuer as described in {{DAA}}is introduced and its duties as well as its mappings with other RATS roles are specified.
+To accomplish that goal, the protocol entity DAA Issuer as described in {{DAA}} is introduced and its duties as well as its mappings with other RATS roles are specified.
 
 # Terminology
 
