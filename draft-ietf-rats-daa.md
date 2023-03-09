@@ -157,7 +157,7 @@ In order to support these DAA signatures, the DAA Issuer MUST associate a single
 The DAA Issuer’s group public key certificate replaces the individual Attester Identity documents during authenticity validation as a part of the appraisal of Evidence conducted by a Verifier.
 This is in contrast to intuition that there has to be a unique Attester Identity per device.
 
-For DAA, the role of the Endorser is essentially the same, but they now provide Attester endorsement documents to the DAA Issuer rather than directly to the Verifier. These Attester endorsement documents enable the Attester to obtain a credential from the DAA Issuer.
+For DAA, the role of the Endorser is essentially the same, but it now provides Attester endorsements to the DAA Issuer rather than directly to the Verifier. These Attester endorsements enable the Attester to obtain a credential from the DAA Issuer.
 
 # DAA changes to the RATS Architecture
 
