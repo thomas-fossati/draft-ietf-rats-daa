@@ -213,7 +213,7 @@ This is because an Attesting Environment should not be distinguishable and the D
 
 As outlined above, for DAA to provide privacy for the Attester, the DAA group must be large enough to stop the Verifier identifying the Attester.
 
-Randomisation of the DAA credential by the Attester means that collusion between the DAA Issuer and Verifier, will not give them any advantage when trying to identify the Attester.
+Randomization of the DAA credential by the Attester means that collusion between the DAA Issuer and Verifier, will not give them any advantage when trying to identify the Attester.
 
 For DAA, the Attestation Evidence conveyed to the Verifier MUST not uniquely identify the Attester. If the Attestation Evidence is unique to an Attester other cryptographic techniques can be used, for example, property based attestation [PBA].
 
@@ -232,10 +232,5 @@ The new DAA Issuer role can be implemented in a number of ways, for example:
 
 1. As a stand-alone service like a Certificate Authority, a Privacy CA.
 2. As a part of the Attester's manufacture. The Endorser and the DAA Issuer could be the same entity and the manufacturer would then provide a certificate for the group public key to the Verifier.
-
-
-# IANA Considerations
-
-We don't yet.
 
 --- back
