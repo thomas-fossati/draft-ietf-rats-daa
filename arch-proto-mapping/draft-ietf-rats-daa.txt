@@ -5,11 +5,11 @@
 RATS Working Group                                           H. Birkholz
 Internet-Draft                                            Fraunhofer SIT
 Intended status: Informational                                 C. Newton
-Expires: 10 September 2023                                       L. Chen
+Expires: 11 September 2023                                       L. Chen
                                                     University of Surrey
                                                                D. Thaler
                                                                Microsoft
-                                                            9 March 2023
+                                                           10 March 2023
 
 
    Direct Anonymous Attestation for the Remote Attestation Procedures
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 10 September 2023.
+   This Internet-Draft will expire on 11 September 2023.
 
 Copyright Notice
 
@@ -234,9 +234,9 @@ Table of Contents
    has to be a unique Attester Identity per device.
 
    For DAA, the role of the Endorser is essentially the same, but it now
-   provides Attester endorsements to the DAA Issuer rather than directly
-   to the Verifier.  These Attester endorsements enable the Attester to
-   obtain a credential from the DAA Issuer.
+   provides Endorsements to the DAA Issuer rather than directly to the
+   Verifier.  These Endorsements enable the Attester to obtain a
+   credential from the DAA Issuer.
 
 4.  DAA changes to the RATS Architecture
 
