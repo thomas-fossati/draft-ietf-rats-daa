@@ -79,10 +79,9 @@ Table of Contents
    6.  Privacy Considerations
    7.  Security Considerations
    8.  Implementation Considerations
-   9.  IANA Considerations
-   10. References
-     10.1.  Normative References
-     10.2.  Informative References
+   9.  References
+     9.1.  Normative References
+     9.2.  Informative References
    Authors' Addresses
 
 1.  Introduction
@@ -332,7 +331,7 @@ Table of Contents
    DAA group must be large enough to stop the Verifier identifying the
    Attester.
 
-   Randomisation of the DAA credential by the Attester means that
+   Randomization of the DAA credential by the Attester means that
    collusion between the DAA Issuer and Verifier, will not give them any
    advantage when trying to identify the Attester.
 
@@ -372,13 +371,9 @@ Table of Contents
        then provide a certificate for the group public key to the
        Verifier.
 
-9.  IANA Considerations
+9.  References
 
-   We don't yet.
-
-10.  References
-
-10.1.  Normative References
+9.1.  Normative References
 
    [DAA]      Brickell, E., Camenisch, J., and L. Chen, "Direct
               anonymous attestation", Proceedings of the 11th ACM
@@ -401,7 +396,7 @@ Table of Contents
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
-10.2.  Informative References
+9.2.  Informative References
 
    [I-D.ietf-rats-architecture]
               Birkholz, H., Thaler, D., Richardson, M., Smith, N., and
