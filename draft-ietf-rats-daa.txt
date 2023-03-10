@@ -5,11 +5,11 @@
 RATS Working Group                                           H. Birkholz
 Internet-Draft                                            Fraunhofer SIT
 Intended status: Informational                                 C. Newton
-Expires: 11 January 2023                                         L. Chen
+Expires: 11 September 2023                                       L. Chen
                                                     University of Surrey
                                                                D. Thaler
                                                                Microsoft
-                                                            10 July 2022
+                                                           10 March 2023
 
 
    Direct Anonymous Attestation for the Remote Attestation Procedures
@@ -19,9 +19,9 @@ Expires: 11 January 2023                                         L. Chen
 Abstract
 
    This document maps the concept of Direct Anonymous Attestation (DAA)
-   to the Remote Attestation Procedures (RATS) Architecture.  The role
-   DAA Issuer is introduced and its interactions with existing RATS
-   roles is specified.
+   to the Remote Attestation Procedures (RATS) Architecture.  The
+   protocol entity DAA Issuer is introduced and its mapping with
+   existing RATS roles in DAA protocol steps is specified.
 
 About This Document
 
@@ -33,6 +33,7 @@ About This Document
    Discussion of this document takes place on the Remote ATtestation
    ProcedureS (rats) Working Group mailing list (mailto:rats@ietf.org),
    which is archived at https://mailarchive.ietf.org/arch/browse/rats/.
+   Subscribe at https://www.ietf.org/mailman/listinfo/rats/.
 
    Source for this draft and an issue tracker can be found at
    https://github.com/ietf-rats-wg/draft-ietf-rats-daa.
@@ -52,11 +53,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 11 January 2023.
+   This Internet-Draft will expire on 11 September 2023.
 
 Copyright Notice
 
-   Copyright (c) 2022 IETF Trust and the persons identified as the
+   Copyright (c) 2023 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -101,18 +102,17 @@ Table of Contents
    -- are included in attestation Evidence or even corresponding
    Attestation Results.  This document illustrates how Direct Anonymous
    Attestation (DAA) can mitigate the issue of uniquely
-   (re-)identifiable Attesting Environments.  To accomplish that goal, a
-   new RATS role -- the DAA Issuer -- is introduced and its duties as
-   well as its interactions with other RATS roles are specified.
+   (re-)identifiable Attesting Environments.  To accomplish that goal,
+   the protocol entity DAA Issuer as described in [DAA] is introduced
+   and its duties as well as its mappings with other RATS roles are
+   specified.
 
 2.  Terminology
 
    This document uses the following set of terms, roles, and concepts as
    defined in [I-D.ietf-rats-architecture]: Attester, Verifier, Relying
-   Party, Conceptual Message, Evidence, Attestation Result, Attesting
-   Environment.  The role of Endorser, also defined in
-   [I-D.ietf-rats-architecture], needs to be adapted and details are
-   given below.
+   Party, Endorser, Conceptual Message, Evidence, Attestation Result,
+   Attesting Environment.
 
    Additionally, this document uses and adapts, as necessary, the
    following concepts and information elements as defined in
@@ -130,67 +130,113 @@ Table of Contents
 
 3.  Direct Anonymous Attestation
 
-   Figure 1 shows the data flows between the different RATS roles
-   involved in DAA.
+   Two protocols as described in [DAA] are illustrated: the Join
+   Protocol and the DAA-Signing Protocol.  This section specifies the
+   mapping of the protocol entity DAA Issuer described in [DAA] as an
+   actor in the Join Protocol as well as an actor in the corresponding
+   DAA-Signing Protocol to roles specified in the RATS Architecture.
 
-     .==========.       .===========.   .==========.   .===============.
-     ║ Endorser ║       ║ Reference ║   ║ Verifier ║   ║ Relying Party ║
-     '====+====='       ║ Value     ║   ║  Owner   ║   ║  Owner        ║
-          |             ║ Provider  ║   '======+==='   '====+=========='
-          |             '=========+='          |            |
-          |                       |            |            |
-          |Endorsements           |Reference   |Appraisal   |Appraisal
-          |                       |Values      |Policy      |Policy for
-          |                       |            |for         |Attestation
-          |                       |            |Evidence    |Results
-          V                       |            |            |
-   .-----------------.            |            |            |
-   |   DAA Issuer    +---------.  |            |            |
-   '------------+----'         |  |            |            |
-     ^          |         Group|  |            |            |
-     |          |        Public|  |            |            |
-     |Credential|           Key|  |            |            |
-     |Request   |              v  v            v            |
-     |          |             .----------------------.      |
-     |          |         .-->+      Verifier        +--.   |
-     |          |         |   '----------------------'  |   |
-     |          |         |                             |   |
-     |          |         |Evidence          Attestation|   |
-     |          |         |                      Results|   |
-     |          |         |                             |   |
-     |      Cred|ential   |                             |   |
-     |          |         |                             |   |
-     |          v         |                             v   v
-     |        .-------------.                     .---------------.
-     '--------+  Attester   |                     | Relying Party |
-              '-------------'                     '---------------'
+   In the Join Protocol, the protocol entity DAA Issuer takes on the
+   RATS roles of Verifier and associated Relying Party.  The mapping is
+   illustrated in Figure Figure 1.
 
-                          Figure 1: DAA data flows
+    .--------.     .---------.       .--------.       .-------------.
+   | Endorser |   | Reference |     | Verifier |     | Relying Party |
+    '-+------'    | Value     |     | Owner    |     | Owner         |
+      |           | Provider  |      '---+----'       '----+--------'
+      |            '-----+---'           |                 |
+      |                  |               |                 |
+      | Endorsements     | Reference     | Appraisal       | Appraisal
+      |                  | Values        | Policy for      | Policy for
+      |                  |               | Evidence        | Attestation
+       '-----------.     |               |                 | Results
+                    |    |               |                 |
+               .----|----|---------------|-----------------|------.
+               |    |    |               |                 |      |
+               |    v    v               v                 |      |
+               |  .-------------------------.              |      |
+         .------->|         Verifier        +-----.        |      |
+        |      |  '-------------------------'      |       |      |
+        |      |                                   |       |      |
+        |  Evidence                    Attestation |       |      |
+        |      |                       Results     |       |      |
+        |      |                                   |       |      |
+        |      |                                   v       v      |
+  .-----+----. |                               .---------------.  |
+  | Attester | |                               | Relying Party |  |
+  '----------' |    DAA Issuer                 '---------------'  |
+               '--------------------------------------------------'
 
-   DAA [DAA] is a signature scheme that allows the privacy of users that
-   are associated with an Attester (e.g. its owner) to be maintained.
-   Essentially, DAA can be seen as a group signature scheme with the
-   feature that given a DAA signature no-one can find out who the signer
-   is, i.e., the anonymity is not revocable.  To be able to sign
-   anonymously, an Attester has to obtain a credential from a DAA
-   Issuer.  The DAA Issuer uses a private/public key pair to generate
-   credentials for a group of Attesters and makes the public key (in the
-   form of a public key certificate) available to the verifier in order
-   to enable them to validate the Evidence received.
+          Figure 1: RATS Architecture for the Join Protocol
+
+   The Join Protocol is essentially an enrollment protocol that consumes
+   Evidence from the Attester (therefore the mapping to the Verifier
+   role).  Corresponding Appraisal Policies for Evidence specific to the
+   Join Protocol are used to produce Attestation Results to decide
+   whether to issue a DAA credential to an Attester or not (therefore
+   the mapping to the Relying Party role).
+
+   In the DAA-Signing Protocol, the RATS role Endorser is then taken on
+   by the DAA Issuer protocol entity.  The mapping is illustrated in
+   Figure Figure 2.
+
+.---------------.
+| DAA Issuer    |
+|   .--------.  |  .---------.       .--------.       .-------------.
+|  | Endorser | | | Reference |     | Verifier |     | Relying Party |
+|   '-+------'  | | Value     |     | Owner    |     | Owner         |
+|     |         | | Provider  |      '---+----'       '----+--------'
+'-----|---------'  '-----+---'           |                 |
+      |                  |               |                 |
+      | Endorsements     | Reference     | Appraisal       | Appraisal
+      |                  | Values        | Policy for      | Policy for
+      |                  |               | Evidence        | Attestation
+       '-----------.     |               |                 | Results
+                    |    |               |                 |
+                    v    v               v                 |
+                  .-------------------------.              |
+          .------>|         Verifier        +-----.        |
+         |        '-------------------------'      |       |
+         |                                         |       |
+         | Evidence                    Attestation |       |
+         |                             Results     |       |
+         |                                         |       |
+         |                                         v       v
+   .-----+----.                                .---------------.
+   | Attester |                                | Relying Party |
+   '----------'                                '---------------'
+
+       Figure 2: RATS Architecture for the DAA-Signing Protocol
+
+   The DAA Issuer acts as the Endorser for the Group Public Key that is
+   used by the Verifier for the appraisal of evidence of anonymized
+   Attesters that use the DAA credentials and associated key material to
+   produce Evidence.
+
+   In consequence, DAA provides a signature scheme that allows the
+   privacy of users that are associated with an Attester (e.g., its
+   owner) to be maintained.  Essentially, DAA can be seen as a group
+   signature scheme with the feature that given a DAA signature no-one
+   can find out who the signer is, i.e., the anonymity is not revocable.
+   To be able to sign anonymously, an Attester has to obtain a
+   credential from a DAA Issuer.  The DAA Issuer uses a private/public
+   key pair to generate credentials for a group of Attesters and makes
+   the public key (in the form of a public key certificate) available to
+   the Verifier in order to enable it to validate the Evidence received.
 
    In order to support these DAA signatures, the DAA Issuer MUST
    associate a single key pair with a group of Attesters and use the
    same key pair when creating the credentials for all of the Attesters
-   in this group.  The DAA Issuer's group public key certificate
+   in this group.  The DAA Issuer’s group public key certificate
    replaces the individual Attester Identity documents during
    authenticity validation as a part of the appraisal of Evidence
-   conducted by a verifier.  This is in contrast to intuition that there
+   conducted by a Verifier.  This is in contrast to intuition that there
    has to be a unique Attester Identity per device.
 
-   For DAA, the role of the Endorser is essentially the same, but they
-   now provide Attester endorsement documents to the DAA Issuer rather
-   than directly to the verifier.  These Attester endorsement documents
-   enable the Attester to obtain a credential from the DAA Issuer.
+   For DAA, the role of the Endorser is essentially the same, but it now
+   provides Endorsements to the DAA Issuer rather than directly to the
+   Verifier.  These Endorsements enable the Attester to obtain a
+   credential from the DAA Issuer.
 
 4.  DAA changes to the RATS Architecture
 
@@ -218,14 +264,14 @@ Table of Contents
       associated group private key is used by the DAA Issuer to provide
       the Attester with a credential that it can use to convince the
       Verifier that its Evidence is valid.  To keep their anonymity, the
-      Attester randomises this credential each time that it is used.
+      Attester randomizes this credential each time that it is used.
       Although the DAA Issuer knows the Attester Identity and can
-      associate this with the credential issued, randomisation ensures
+      associate this with the credential issued, randomization ensures
       that the Attester's identity cannot be revealed to anyone,
       including the DAA Issuer.
 
    *  The Verifier can use the DAA Issuer's group public key
-      certificate, together with the randomised credential from the
+      certificate, together with the randomized credential from the
       Attester, to confirm that the Evidence comes from a valid Attester
       without revealing the Attester's identity.
 
@@ -245,7 +291,7 @@ Table of Contents
 
       In order to provide proofs of authenticity, Attestation Evidence
       SHOULD be cryptographically associated with an identity document
-      that is a randomised DAA credential.
+      that is a randomized DAA credential.
 
    The following information elements define extensions for
    corresponding information elements defined in
@@ -261,16 +307,16 @@ Table of Contents
 
    Attester Identity ('attesterIdentity'):  _mandatory_
 
-      In DAA, the Attester's identity is not revealed to the verifier.
+      In DAA, the Attester's identity is not revealed to the Verifier.
       The Attester is issued with a credential by the DAA Issuer that is
-      randomised and then used to anonymously confirm the validity of
-      their evidence.  The evidence is verified using the DAA Issuer's
+      randomized and then used to anonymously confirm the validity of
+      their evidence.  The evidence is verified using the DAA Issuer’s
       group public key.
 
    Authentication Secret IDs ('authSecID'):  _mandatory_
 
       In DAA, Authentication Secret IDs are represented by the DAA
-      Issuer's group public key that MUST be used to create DAA
+      Issuer’s group public key that MUST be used to create DAA
       credentials for the corresponding Authentication Secrets used to
       protect Evidence.
 
@@ -278,7 +324,7 @@ Table of Contents
       Attesting Environment but is associated with a group of Attesting
       Environments.  This is because an Attesting Environment should not
       be distinguishable and the DAA credential which represents the
-      Attesting Environment is randomised each time it used.
+      Attesting Environment is randomized each time it used.
 
 6.  Privacy Considerations
 
@@ -334,7 +380,11 @@ Table of Contents
 
 10.1.  Normative References
 
-   [DAA]      "*** BROKEN REFERENCE ***".
+   [DAA]      Brickell, E., Camenisch, J., and L. Chen, "Direct
+              anonymous attestation", Proceedings of the 11th ACM
+              conference on Computer and communications security,
+              DOI 10.1145/1030083.1030103, October 2004,
+              <https://doi.org/10.1145/1030083.1030103>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -355,20 +405,25 @@ Table of Contents
 
    [I-D.ietf-rats-architecture]
               Birkholz, H., Thaler, D., Richardson, M., Smith, N., and
-              W. Pan, "Remote Attestation Procedures Architecture", Work
-              in Progress, Internet-Draft, draft-ietf-rats-architecture-
-              18, 14 June 2022, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-rats-architecture-18>.
+              W. Pan, "Remote ATtestation procedureS (RATS)
+              Architecture", Work in Progress, Internet-Draft, draft-
+              ietf-rats-architecture-22, 28 September 2022,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
+              architecture-22>.
 
    [I-D.ietf-rats-reference-interaction-models]
               Birkholz, H., Eckel, M., Pan, W., and E. Voit, "Reference
               Interaction Models for Remote Attestation Procedures",
               Work in Progress, Internet-Draft, draft-ietf-rats-
-              reference-interaction-models-05, 26 January 2022,
+              reference-interaction-models-06, 7 September 2022,
               <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
-              reference-interaction-models-05>.
+              reference-interaction-models-06>.
 
-   [PBA]      "*** BROKEN REFERENCE ***".
+   [PBA]      Chen, L., Löhr, H., Manulis, M., and A. Sadeghi,
+              "Property-Based Attestation without a Trusted Third
+              Party", Lecture Notes in Computer Science pp. 31-46,
+              DOI 10.1007/978-3-540-85886-7_3, September 2008,
+              <https://doi.org/10.1007/978-3-540-85886-7_3>.
 
 Authors' Addresses
 
