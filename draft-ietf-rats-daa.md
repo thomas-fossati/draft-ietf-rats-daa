@@ -81,7 +81,7 @@ A PKIX Certificate is an X.509v3 format certificate as specified by {{RFC5280}}.
 
 Two protocols as described in {{DAA}} are illustrated: the Join Protocol and the DAA-Signing Protocol. This section specifies the mapping of the protocol entity DAA Issuer described in {{DAA}} as an actor in the Join Protocol as well as an actor in the corresponding DAA-Signing Protocol to roles specified in the RATS Architecture.
 
-In the Join Protocol, the protocol entity DAA Issuer takes on the RATS roles of Verifier and associated Relying Party. The mapping is illustrated in Figure {{join-mapping}}.
+In the Join Protocol, the protocol entity DAA Issuer takes on the RATS roles of Verifier and associated Relying Party. The mapping is illustrated in {{join-mapping}}.
 
 ~~~~ aasvg
     .--------.     .---------.       .--------.       .-------------.
@@ -115,7 +115,7 @@ In the Join Protocol, the protocol entity DAA Issuer takes on the RATS roles of 
 
 The Join Protocol is essentially an enrollment protocol that consumes Evidence from the Attester (therefore the mapping to the Verifier role). Corresponding Appraisal Policies for Evidence specific to the Join Protocol are used to produce Attestation Results to decide whether to issue a DAA credential to an Attester or not (therefore the mapping to the Relying Party role).
 
-In the DAA-Signing Protocol, the RATS role Endorser is then taken on by the DAA Issuer protocol entity. The mapping is illustrated in Figure {{sign-mapping}}.
+In the DAA-Signing Protocol, the RATS role Endorser is then taken on by the DAA Issuer protocol entity. The mapping is illustrated in {{sign-mapping}}.
 
 ~~~~aasvg
 .---------------.
